@@ -34,5 +34,13 @@ public interface UserService {
 	 * para retornar.
 	 */
 	public User findById(Long id);
-
+	
+	/**
+	 * Procura um {@link User} pelo Login.
+	 * 
+	 * @param userLogin
+	 * @return {@link User} ou <code>null</code> caso nao haja dados
+	 * para retornar.
+	 */
+	public User findByLogin(String userLogin);
 }

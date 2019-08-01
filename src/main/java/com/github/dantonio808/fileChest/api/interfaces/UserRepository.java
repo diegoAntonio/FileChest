@@ -1,5 +1,6 @@
 package com.github.dantonio808.fileChest.api.interfaces;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.github.dantonio808.fileChest.api.model.User;
@@ -12,5 +13,7 @@ import com.github.dantonio808.fileChest.api.model.User;
  *
  */
 public interface UserRepository extends CrudRepository<User, Long> {
-
+	
+	@Query(value = "SELECT * FROM USER WHERE LOGIN = ?1", nativeQuery = true)
+	public User findByLogin(String login);
 }

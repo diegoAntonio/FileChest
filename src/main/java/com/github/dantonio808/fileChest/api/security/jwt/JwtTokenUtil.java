@@ -2,11 +2,15 @@ package com.github.dantonio808.fileChest.api.security.jwt;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 /**
  *  Classe respons&aacute;vel por fazer as opera&ccedil;&otilde;es
@@ -27,7 +31,7 @@ public class JwtTokenUtil implements Serializable {
 	private String secret;
 	
 	@Value("${jwt.expiration}")
-	private String expiration;
+	private long expiration;
 	
 	/**
 	 *  Retorna o login do usuario obitdo de um token
@@ -83,5 +87,50 @@ public class JwtTokenUtil implements Serializable {
 		}
 		
 		return claims;
+	}
+	
+	private boolean isTokenExpired(String token) {
+		Date dataExpiracao = this.getExpirationDateFromToken(token);
+		
+		return dataExpiracao.before(new Date());
+	}
+	
+	public String generateToken(UserDetails details) {
+		Map<String, Object> claims = new HashMap<>();
+		
+		claims.put(CLAIM_KEY_USERNAME, details.getUsername());
+		claims.put(CLAIM_KEY_CREATED, new Date());
+		
+		return doGenerateToken(claims);
+	}
+
+	private String doGenerateToken(Map<String, Object> claims) {
+		final Date criacao = (Date) claims.get(CLAIM_KEY_CREATED);
+		final Date dataExpiracao = new Date(criacao.getTime() + (expiration * 1000));
+		
+		return Jwts.builder().setClaims(claims)
+							.setExpiration(dataExpiracao)
+							.signWith(SignatureAlgorithm.HS512, secret)
+							.compact();
+	}
+	
+	public boolean canTokenBeRefreshed(String token) {
+		return (!isTokenExpired(token));
+	}
+	
+	public String refreshToken(String token) {
+		String refreshedToken = "";
+		
+		try {
+			final Claims claims = getClaimsFromToken(token);
+			claims.put(CLAIM_KEY_CREATED, new Date());
+			refreshedToken = doGenerateToken(claims);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			refreshedToken = null;
+		}
+		
+		return refreshedToken;
 	}
 }

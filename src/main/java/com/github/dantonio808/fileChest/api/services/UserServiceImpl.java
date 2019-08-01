@@ -34,4 +34,10 @@ public class UserServiceImpl implements UserService {
 	public User findById(Long id) {
 		return this.repository.findOne(id);
 	}
+	
+	@Override
+	@Transactional(readOnly=true)
+	public User findByLogin(String userLogin) {
+		return this.repository.findByLogin(userLogin);
+	}
 }
