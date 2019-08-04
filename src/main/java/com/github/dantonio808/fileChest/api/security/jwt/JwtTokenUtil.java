@@ -8,6 +8,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.github.dantonio808.fileChest.api.security.model.JwtUser;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -132,5 +134,12 @@ public class JwtTokenUtil implements Serializable {
 		}
 		
 		return refreshedToken;
+	}
+	
+	public boolean isTokenValid(String token, UserDetails details) {
+		JwtUser user = (JwtUser) details;
+		final String userName = this.getUserNameFromToken(token);
+		
+		return (user.getUsername().equalsIgnoreCase(userName) && !isTokenExpired(token));
 	}
 }
