@@ -23,7 +23,7 @@ import com.github.dantonio808.fileChest.api.security.model.CurrentUser;
 import com.github.dantonio808.fileChest.api.security.request.JwtAuthenticationRequest;
 
 @RestController
-@CrossOrigin(value="*", allowedHeaders="*")
+@CrossOrigin(origins = "*", allowedHeaders= "*")
 public class AuthenticationRestController {
 
 	@Autowired

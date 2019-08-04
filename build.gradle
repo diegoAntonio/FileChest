@@ -2,11 +2,11 @@ apply plugin: 'java'
 apply plugin: 'eclipse-wtp'
 apply plugin: 'war'
 
-// Versão Java JDK
+// Versï¿½o Java JDK
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-// Identificação do war
+// Identificaï¿½ï¿½o do war
 war {
     baseName = 'fileChest'
 }
@@ -18,14 +18,14 @@ repositories {
 
 dependencies {
 	//Spring data
-    compile 'org.springframework.data:spring-data-jpa:1.10.4.RELEASE'
+    compile 'org.springframework.data:spring-data-jpa:2.1.6.RELEASE'
 	
 	//Mysql Connector
-   compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.13'
+    compile 'mysql:mysql-connector-java:6.0.5'
    
    // Spring boot
-   compile group: 'org.springframework.boot', name:'spring-boot-starter-web', version:'1.1.9.RELEASE'
-   compile group: 'org.springframework.boot', name:'spring-boot-starter-actuator', version:'1.1.9.RELEASE'
+   compile group: 'org.springframework.boot', name:'spring-boot-starter-web', version:'2.1.6.RELEASE'
+   compile group: 'org.springframework.boot', name:'spring-boot-starter-actuator', version:'2.1.6.RELEASE'
    
     //hibernate
    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.1.0.Final'
@@ -36,16 +36,16 @@ dependencies {
     compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.8.9'
 	
 	//Tomcat Embebbed
-	providedRuntime group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '1.1.9.RELEASE'
+	providedRuntime group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '2.1.6.RELEASE'
 	
 	//Sprin Test
-	testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '1.1.9.RELEASE'
+	testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.1.6.RELEASE'
 	
 	//Junit
 	testCompile group: 'junit', name: 'junit', version: '4.+'
 	
 	//Sprin Security
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '1.1.9.RELEASE'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.1.6.RELEASE'
 	
 	//JWT
 	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.8.0'
