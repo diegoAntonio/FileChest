@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import com.github.dantonio808.fileChest.api.security.model.JwtUser;
 
@@ -23,6 +24,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
  * @since 29/07/2019
  *
  */
+@Component
 public class JwtTokenUtil implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static final String CLAIM_KEY_USERNAME = "sub";

@@ -10,6 +10,7 @@ import com.github.dantonio808.fileChest.api.model.security.UserAuthorithies;
 
 @Service
 public class UserAuthorithiesServiceImpl implements AuthoritiesService {
+	@Autowired
 	private AuthoritiesRepository repository;
 	
 	@Autowired
@@ -19,20 +20,17 @@ public class UserAuthorithiesServiceImpl implements AuthoritiesService {
 	}
 
 	@Transactional
-	@Override
 	public void addUserAuthority(UserAuthorithies authority) {
 		this.repository.save(authority);
 	}
 
 	@Transactional(readOnly=true)
-	@Override
 	public Iterable<UserAuthorithies> findAll() {
 		return this.repository.findAll();
 	}
 
 	@Transactional
-	@Override
 	public UserAuthorithies findById(Long id) {
-		return this.repository.findOne(id);
+		return this.repository.findById(id).get();
 	}
 }
